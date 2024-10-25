@@ -66,7 +66,7 @@ public class ApplicationDataRetrievalClient {
     public String getApplicationAccessURL(String tenant, String applicationName)
             throws ApplicationDataRetrievalClientException {
 
-        try (CloseableHttpClient httpclient = HttpClientBuilder.create().useSystemProperties().build()) {
+        try (CloseableHttpClient httpclient = HTTPClientUtils.createClientWithCustomVerifier()) {
             HttpGet request =
                     new HttpGet(getApplicationsEndpoint(tenant) + APP_FILTER +
                             Encode.forUriComponent(applicationName));
