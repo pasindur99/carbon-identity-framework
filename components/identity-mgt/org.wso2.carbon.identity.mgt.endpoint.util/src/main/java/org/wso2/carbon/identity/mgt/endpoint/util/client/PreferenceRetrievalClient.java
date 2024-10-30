@@ -30,6 +30,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -220,7 +221,7 @@ public class PreferenceRetrievalClient {
     public boolean checkPreference(String tenant, String connectorName, String propertyName, boolean defaultValue)
             throws PreferenceRetrievalClientException {
 
-        try (CloseableHttpClient httpclient = HTTPClientUtils.createClientWithCustomVerifier()) {
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().useSystemProperties().build()) {
             JSONArray main = new JSONArray();
             JSONObject preference = new JSONObject();
             preference.put(CONNECTOR_NAME, connectorName);
@@ -275,7 +276,7 @@ public class PreferenceRetrievalClient {
     public boolean checkMultiplePreference(String tenant, String connectorName, List<String> propertyNames)
             throws PreferenceRetrievalClientException {
 
-        try (CloseableHttpClient httpclient = HTTPClientUtils.createClientWithCustomVerifier()) {
+        try (CloseableHttpClient httpclient = HttpClientBuilder.create().useSystemProperties().build()) {
             JSONArray requestBody = new JSONArray();
             JSONObject preference = new JSONObject();
             preference.put(CONNECTOR_NAME, connectorName);
